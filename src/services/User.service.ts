@@ -3,7 +3,7 @@ import { HashCryptService } from '../services/HashCrypt.service';
 import { UserModel } from "../model/User.model";
 import { TokenService } from "./Token.service";
 import { HttpException } from "../middlewares/Http.exception";
-
+import { InstanceAxios } from "../axios.connection";
 
 export class UserService {
     constructor(
@@ -32,5 +32,12 @@ export class UserService {
 
         const token = await this.tokenService.generateToken(userDb.username);
         return { user: userDb, token };
-    }
+    };
+
+    async getBreweries(query: string) {
+        const axiosService = new InstanceAxios(query);
+
+        const data = await axiosService.get();
+        return data;
+    };
 }

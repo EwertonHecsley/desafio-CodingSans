@@ -23,4 +23,14 @@ export class UserController {
         return res.status(200).json({ mensagem: 'Usuário logado com sucesso.', usuario: responseFormated, token: response.token });
     };
 
+    public async getBreweries(req: Request, res: Response) {
+        const { filtro } = req.query;
+
+        const userService = new UserService();
+        if (typeof filtro === 'string') {
+            const response = await userService.getBreweries(filtro);
+            return res.status(200).json(response);
+        };
+    };
+
 };

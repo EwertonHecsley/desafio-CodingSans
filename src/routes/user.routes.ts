@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 
 import { UserController } from '../controllers/User.controller';
 import { verifyLogin } from '../middlewares/login.middleware';
@@ -12,7 +12,7 @@ router.post('/user', userControllerRoute.createUser);
 
 router.use(verifyLogin);
 
-router.get('/teste', (req: Request, res: Response) => res.json({ mensagem: 'Rota Teste' }))
+router.get('/cervejaria', userControllerRoute.getBreweries);
 
 
 export default router;
