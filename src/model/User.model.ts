@@ -8,12 +8,13 @@ export class UserModel {
     async createUser(user: IUser) {
         const { username, password } = user;
 
-        const query = `INSERT INTO users (username, password) VALUES ($1, $2)`;
+        const query = `INSERT INTO users (username, password) VALUES (?, ?)`;
         const values = [username, password];
 
-        const [result] = await pool.query(query, values);
+        await pool.query(query, values);
+        const [result] = await pool.query(`SELECT * FROM users WHERE username = ?`, [username]);
 
         return result;
     };
 
-}
+};

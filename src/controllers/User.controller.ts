@@ -1,17 +1,13 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/User.service";
+import { IUser } from "../interfaces/User.interface";
 
 export class UserController {
-    private userService: UserService;
+    public async createUser(req: Request, res: Response) {
+        const body = req.body as IUser;
 
-    constructor() {
-        this.userService = new UserService();
-    }
-
-    async createUser(req: Request, res: Response) {
-        const { username, password } = req.body;
-
-        const response = await this.userService.createUser({ username, password });
+        const userService = new UserService();
+        const response = await userService.createUser({ username: body.username, password: body.password });
         return res.status(201).json(response);
     };
 

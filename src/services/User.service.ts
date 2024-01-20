@@ -4,13 +4,12 @@ import { UserModel } from "../model/User.model";
 
 
 export class UserService {
-    private userModel: UserModel;
-    private hashService: HashCryptService;
 
-    constructor() {
-        this.userModel = new UserModel();
-        this.hashService = new HashCryptService();
-    };
+
+    constructor(
+        private hashService = new HashCryptService,
+        private userModel = new UserModel
+    ) { };
 
     async createUser(user: IUser) {
         const { username, password } = user;
