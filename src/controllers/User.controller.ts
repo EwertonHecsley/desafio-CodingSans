@@ -11,4 +11,16 @@ export class UserController {
         return res.status(201).json(response);
     };
 
+    public async login(req: Request, res: Response) {
+        const body = req.body as IUser;
+
+        const userService = new UserService();
+        const response = await userService.login({ username: body.username, password: body.password });
+        if (!response) return res.status(401).json({ mensagem: 'Não autorizado.' });
+
+        const { password: _, create_time: __, ...responseFormated } = response.user;
+
+        return res.status(200).json({ mensagem: 'Usuário logado com sucesso.', usuario: responseFormated, token: response.token });
+    };
+
 };

@@ -4,6 +4,7 @@ const router = Router();
 
 const userControllerRoute = new UserController();
 
+router.post('/login', userControllerRoute.login);
 router.post('/user', userControllerRoute.createUser);
 
 export default router;
