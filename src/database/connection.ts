@@ -1,17 +1,18 @@
 import 'dotenv/config';
-import { createPool, Pool, PoolOptions } from 'mysql2/promise';
+import { knex } from 'knex';
 
-const dbConfig: PoolOptions = ({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    port: process.env.MYSQL_PORT as unknown as number,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+const instaceKnex = knex({
+    client: 'mysql2',
+    connection: {
+        host: process.env.MYSQL_HOST,
+        port: process.env.MYSQL_PORT as unknown as number,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE
+    }
 });
 
-const pool: Pool = createPool(dbConfig);
+export default instaceKnex;
 
-export default pool;
+
+

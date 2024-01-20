@@ -4,8 +4,6 @@ import { UserModel } from "../model/User.model";
 
 
 export class UserService {
-
-
     constructor(
         private hashService = new HashCryptService,
         private userModel = new UserModel
@@ -19,4 +17,8 @@ export class UserService {
         const newUser = await this.userModel.createUser({ username: hashedUsername, password: hashedPassword });
         return newUser;
     };
+
+    async login(user: IUser) {
+        const userDb = await this.userModel.getUserByUsername(user.username);
+    }
 }
